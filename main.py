@@ -99,8 +99,9 @@ class TextTranslator:
     def translate(self, text: str) -> str:
 
         detected = self.lang_detect(text)
+        cyrillic = bool(re.search('[а-яА-Я]', text))
         t = Translator()
-        if detected == "ru":
+        if cyrillic or detected == "ru":
             return t.translate(text, dest="en", src="ru").text
         else:
             return t.translate(text, dest="ru", src="en").text
